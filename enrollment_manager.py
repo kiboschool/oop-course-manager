@@ -82,7 +82,7 @@ class EnrollmentManager:
         for student in self.students:
             print('Student id', student['id'])
             print('Student name', student['name'])
-            print('Student self.courses:')
+            print('Student courses:')
             for course_id in student['course_ids']:
                 print('\t' + course_id)
     

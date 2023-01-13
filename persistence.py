@@ -1,23 +1,23 @@
 
 import os
-import course_enrollment
-import jsonpickle
+import json
+import enrollment_manager
 
-filename = 'course_enrollment_persistence.json'
+filename = 'enrollment_manager_persistence.json'
 
 def load():
+    manager = enrollment_manager.EnrollmentManager()
     if os.path.exists(filename):
         with open(filename, 'r') as f:
-            json_text = f.read()
-            persisted = jsonpickle.decode(json_text)
+            persisted = json.load(f)
             
-        return persisted
-    else:
-        return course_enrollment.EnrollmentManager()
+        manager.students = persisted['students']
+        manager.courses = persisted['courses']
+    return manager
     
 
-def save(enrollment_manager):
+def save(manager):
+    persisted = {'students': manager.students, 'courses': manager.courses }
     with open(filename, 'w') as f:
-        json_text = jsonpickle.encode(enrollment_manager)
-        f.write(json_text)
+        json.dump(persisted, f)
 
