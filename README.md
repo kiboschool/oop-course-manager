@@ -1,5 +1,7 @@
 # Course Enrollment OOP
 
+(Solution is in the `solution` branch of this repo)
+
 In Programming 1, one of the projects was to create a Student Enrollment system. This system kept a list of students and which courses they were enrolled in, a much better way for the school to keep this information than to use paper records.
 
 You'll now be creating a new Student Enrollment system, one that builds on of your knowledge of classes and objects. It will now be written with "OOP" - Object-Oriented Programming.
