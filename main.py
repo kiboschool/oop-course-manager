@@ -1,8 +1,9 @@
 import course_enrollment
+import persistence
+
 
 def main_menu():
-    students = []
-    courses = []
+    enrollment_manager = persistence.load()
     while True:        
         print("")
         print("")
@@ -18,17 +19,21 @@ def main_menu():
 
         choice = input("")
         if choice == "1":
-          course_enrollment.add_student(students, courses)
+          enrollment_manager.add_student()
+          persistence.save(enrollment_manager)
         elif choice == "2":
-          course_enrollment.remove_student(students, courses)
+          enrollment_manager.remove_student()
+          persistence.save(enrollment_manager)
         elif choice == "3":
-          course_enrollment.lookup_student(students, courses)
+          enrollment_manager.lookup_student()
         elif choice == "4":
-          course_enrollment.add_course(students, courses)
+          enrollment_manager.add_course()
+          persistence.save(enrollment_manager)
         elif choice == "5":
-          course_enrollment.enroll_student(students, courses)
+          enrollment_manager.enroll_student()
+          persistence.save(enrollment_manager)
         elif choice == "6":
-          course_enrollment.show_students_and_enrollment(students, courses)
+          enrollment_manager.show_students_and_enrollment()
         elif choice == "7":
           return
         else:
