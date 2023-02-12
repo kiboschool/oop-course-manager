@@ -19,7 +19,11 @@ from gradescope_utils.autograder_utils.decorators import weight
 1. Add project dependencies to `gradescope/requirements.txt`
 2. `cd gradescope; ./make_zip.sh`
 3. Upload `gradescope.zip` to the autograder, and check that it builds correctly
-4. Zip and upload the solution (`zip -r solution.zip ./*`) as a submission for a test student, to check that everything is working as expected. You can use the 'Test Autograder' button or click through to Manage Submissions -> Upload Submission.
+4. Zip and upload the solution as a submission for a test student, to check that everything is working as expected. You can use the 'Test Autograder' button or click through to Manage Submissions -> Upload Submission.
+
+```sh
+zip -r solution.zip ./* -x "__pycache__/*" "bin/*" "lib/*" "include/*" "gradescope/*" "pyvenv.cfg"
+```
 
 Don't commit the zip files, you can just remove them.
 
