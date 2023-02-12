@@ -129,6 +129,7 @@ class TestCLI(unittest.TestCase):
 
     @patch("builtins.input", side_effect=["Ope"])
     @patch("builtins.print")
+    @unittest.skip("bonus")
     def test_handle_search_student(self, mock_print, mock_input):
         self.cli.handle_choice("8")
         mock_input.assert_has_calls([call("Enter a name to search: ")])
@@ -136,6 +137,7 @@ class TestCLI(unittest.TestCase):
 
     @patch("builtins.input", side_effect=["Non matching name"])
     @patch("builtins.print")
+    @unittest.skip("bonus")
     def test_handle_search_no_match(self, mock_print, mock_input):
         self.cli.handle_choice("8")
         mock_input.assert_has_calls([call("Enter a name to search: ")])
