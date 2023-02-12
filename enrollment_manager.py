@@ -1,89 +1,44 @@
+# custom errors to raise in certain situations
+class AlreadyExistsError(Exception):
+    pass
 
+
+class NotFoundError(Exception):
+    pass
+
+
+# The interface for the enrollment manager
+# This class doesn't implement any of the methods; they are all implemented in the subclasses
 class EnrollmentManager:
     def __init__(self):
-        self.students = []
-        self.courses = []
-    
-    def add_student(self):
-        new_student_id = input("Enter the student's ID: ")
-        new_student_name = input("Enter the student's name: ")
-        for student in self.students:
-            if student['id'] == new_student_id:
-                print('There is already a student with this ID.')
-                return
-        
-        course_ids = []
-        self.students.append({'id': new_student_id, 'name': new_student_name,
-            'course_ids': course_ids})
-        print('Student added successfully.')
-        
-        
-    def remove_student(self):
-        student_id_to_remove = input("Enter the student's ID: ")
-        for student in self.students:
-            if student['id'] == student_id_to_remove:
-                self.students.remove(student)
-                print('Student removed succesfully.')
-                return
-        print('Could not find a student with this ID.')
-        
-    def lookup_student(self):
-        student_id_to_lookup = input("Enter the student's ID: ")
-        for student in self.students:
-            if student['id'] == student_id_to_lookup:
-                print('Student id:', student['id'])
-                print('Student name:', student['name'])
-                print('Student courses:', student['course_ids'])
-                return
-                
-        print('Could not find a student with this ID.')
-        
-    def add_course(self):
-        new_course_id = input("Please enter a course ID: ")
-        new_course_name = input("Please enter a course name: ")
-        new_course_hours = input("Please enter course hours: ")
-        for course in self.courses:
-            if course['id'] == new_course_id:
-                print('There is already a course with this ID.')
-                return
-        
-        course_student_ids = []
-        new_course = {'id': new_course_id, 'name': new_course_name, 'hours': new_course_hours, 'student_ids': course_student_ids}
-        self.courses.append(new_course)
-        print('Course added successfully.')
-        
-    def enroll_student(self):
-        student_id_to_enroll = input("Please enter a student id: ")
-        course_id_to_enroll = input("Please enter a course id: ")
-        course_exists = False
-        for course in self.courses:
-            if course['id'] == course_id_to_enroll:
-                course_exists = True
-                
-        if not course_exists:
-            print('Course not found')
-            return
-        
-        for student in self.students:
-            if student['id'] == student_id_to_enroll:
-                # this is an easy way to see if an item exists in a list,
-                # for example `if 'a' in ['a', 'b', 'c']: return True`
-                if course_id_to_enroll in student['course_ids']:
-                    print('Student is already enrolled in this course')
-                    return
-                else:
-                    student['course_ids'].append(course_id_to_enroll)
-                    print('Successfully enrolled student in course')
-                    return
-        
-        print("Could not find student with this ID.")
-        
-    def show_students_and_enrollment(self):
-        for student in self.students:
-            print('Student id', student['id'])
-            print('Student name', student['name'])
-            print('Student courses:')
-            for course_id in student['course_ids']:
-                print('\t' + course_id)
-    
-    
+        raise NotImplementedError
+
+    def initialize_db_schema(self):
+        pass
+
+    def initialize_data(self, data):
+        raise NotImplementedError
+
+    def get_students(self):
+        raise NotImplementedError
+
+    def get_courses(self):
+        raise NotImplementedError
+
+    def add_student(self, new_student_name):
+        raise NotImplementedError
+
+    def remove_student(self, student_id_to_remove):
+        raise NotImplementedError
+
+    def lookup_student(self, student_id_to_lookup):
+        raise NotImplementedError
+
+    def lookup_course(self, course_id_to_lookup):
+        raise NotImplementedError
+
+    def add_course(self, new_course_name, new_course_hours):
+        raise NotImplementedError
+
+    def enroll_student(self, student_id_to_enroll, course_id_to_enroll):
+        raise NotImplementedError
