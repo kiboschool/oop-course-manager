@@ -1,4 +1,5 @@
 from enrollment_manager import NotFoundError, AlreadyExistsError
+from gradescope_utils.autograder_utils.decorators import weight
 from enrollment_manager_db import EnrollmentManagerDB
 import unittest
 
@@ -70,7 +71,7 @@ class TestEnrollmentManagerDB(unittest.TestCase):
             self.manager.lookup_student(100)
         assert "No student with ID 100." in e.exception.args
 
-    # @unittest.skip("not implemented")
+    @weight(10)
     def test_search_students_by_name(self):
         results = self.manager.search_students_by_name("m")
         assert len(results) == 4
@@ -81,12 +82,14 @@ class TestEnrollmentManagerDB(unittest.TestCase):
         empty = self.manager.search_students_by_name("zzzz")
         assert len(empty) == 0
 
+    @weight(10)
     def test_get_courses(self):
         courses = self.manager.get_courses()
         assert courses[0]["name"] == "English"
         assert courses[0]["id"] == 1
         assert len(courses) == len(FAKE_DATA["courses"])
 
+    @weight(10)
     def test_add_course(self):
         before = self.manager.get_courses()
         assert len(before) == len(FAKE_DATA["courses"])
@@ -96,17 +99,20 @@ class TestEnrollmentManagerDB(unittest.TestCase):
         assert after[-1]["name"] == "Geography"
         assert after[-1]["hours"] == 75
 
+    @weight(10)
     def test_lookup_course(self):
         english = self.manager.lookup_course(1)
         assert english["name"] == "English"
         assert english["id"] == 1
         assert len(english["students"]) == 3
 
+    @weight(10)
     def test_lookup_missing_course(self):
         with self.assertRaises(NotFoundError) as e:
             self.manager.lookup_course(100)
         assert "No course with ID 100." in e.exception.args
 
+    @weight(10)
     def test_enroll_student(self):
         # The student is not enrolled in the course before
         course_before = self.manager.lookup_course(4)
@@ -128,6 +134,7 @@ class TestEnrollmentManagerDB(unittest.TestCase):
             enrollment.course_id for enrollment in student_after.courses
         ]
 
+    @weight(10)
     def test_enroll_missing(self):
         with self.assertRaises(NotFoundError) as e:
             self.manager.enroll_student(4, 15)
@@ -136,6 +143,7 @@ class TestEnrollmentManagerDB(unittest.TestCase):
             self.manager.enroll_student(15, 4)
         assert "No student with ID 15." in e.exception.args
 
+    @weight(10)
     def test_enroll_existing(self):
         with self.assertRaises(AlreadyExistsError) as e:
             self.manager.enroll_student(1, 1)

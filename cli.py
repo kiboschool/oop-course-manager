@@ -25,11 +25,11 @@ class CLI:
         print("1. Add a student")
         print("2. Remove a student")
         print("3. Look up a student")
-        print("4. Search for student by name")
-        print("5. Add a course")
-        print("6. Enroll a student in a course")
-        print("7. Show students and enrollment")
-        print("8. Quit")
+        print("4. Add a course")
+        print("5. Enroll a student in a course")
+        print("6. Show students and enrollment")
+        print("7. Quit")
+        print("8. Search for student by name")
         print()
 
     def handle_choice(self, choice):
@@ -41,15 +41,15 @@ class CLI:
             elif choice == "3":
                 self.lookup_student()
             elif choice == "4":
-                self.search_student()
-            elif choice == "5":
                 self.add_course()
-            elif choice == "6":
+            elif choice == "5":
                 self.enroll_student()
-            elif choice == "7":
+            elif choice == "6":
                 self.show_students_and_enrollment()
-            elif choice == "8":
+            elif choice == "7":
                 exit()
+            elif choice == "8":
+                self.search_student()
             else:
                 print("Invalid choice. Please try again.")
         except NotFoundError as not_found:

@@ -49,6 +49,7 @@ class TestCLI(unittest.TestCase):
                 call("5. Enroll a student in a course"),
                 call("6. Show students and enrollment"),
                 call("7. Quit"),
+                call("8. Search for student by name"),
             ]
         )
 
@@ -125,6 +126,20 @@ class TestCLI(unittest.TestCase):
             ],
             any_order=True,
         )
+
+    @patch("builtins.input", side_effect=["Ope"])
+    @patch("builtins.print")
+    def test_handle_search_student(self, mock_print, mock_input):
+        self.cli.handle_choice("8")
+        mock_input.assert_has_calls([call("Enter a name to search: ")])
+        mock_print.assert_called_with("Student id:", "1", "name:", "Ope")
+
+    @patch("builtins.input", side_effect=["Non matching name"])
+    @patch("builtins.print")
+    def test_handle_search_no_match(self, mock_print, mock_input):
+        self.cli.handle_choice("8")
+        mock_input.assert_has_calls([call("Enter a name to search: ")])
+        mock_print.assert_called_with("No students found")
 
     @patch(
         "builtins.input",
